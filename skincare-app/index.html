@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skinly | Premium Beauty</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- Persistent Top Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand" id="nav-home">
+                Skinly<span>.</span>
+            </div>
+            <ul class="nav-links">
+                <li id="nav-skin">Skin Care</li>
+                <li id="nav-hair">Hair Care</li>
+                <li id="nav-profile">My Profile</li>
+                <li id="nav-quiz" class="nav-highlight">Take Quiz</li>
+            </ul>
+            <div class="nav-tools">
+                <button id="nav-cart-btn" class="cart-btn" aria-label="Open Shopping Bag">
+                    Bag <span id="cart-badge" class="cart-badge hidden">0</span>
+                </button>
+                <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Open Mobile Menu"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Drawer -->
+    <div id="mobile-drawer-overlay" class="drawer-overlay hidden"></div>
+    <div id="mobile-drawer" class="mobile-drawer">
+        <div class="cart-header">
+            <h3>Menu</h3>
+            <button id="close-mobile-btn" class="close-drawer">X</button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li id="mob-nav-skin"><i class="fas fa-pump-soap"></i> Skin Care</li>
+            <li id="mob-nav-hair"><i class="fas fa-spray-can"></i> Hair Care</li>
+            <li id="mob-nav-profile"><i class="fas fa-user-circle"></i> My Profile</li>
+            <li id="mob-nav-quiz" class="mob-quiz-btn"><i class="fas fa-clipboard-list"></i> Take Quiz</li>
+        </ul>
+        <div style="margin-top: auto; padding: 30px; text-align: center; color: var(--text-muted); font-size: 0.8rem; border-top: 1px solid var(--border);">
+            Skinly Pharmaceuticals © 2026
+        </div>
+    </div>
+
+    <!-- Promotional Marquee -->
+    <div class="marquee-container">
+        <div class="marquee">
+            <span>FREE WORLDWIDE SHIPPING ON ORDERS OVER ₹4000 &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp; CRUELTY-FREE CLINICAL RECIPES &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp; 100% VEGAN &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp; DERMATOLOGIST TESTED</span>
+            <span>FREE WORLDWIDE SHIPPING ON ORDERS OVER ₹4000 &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp; CRUELTY-FREE CLINICAL RECIPES &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp; 100% VEGAN &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp; DERMATOLOGIST TESTED</span>
+        </div>
+    </div>
+
+    <!-- App Main Container -->
+    <div id="app" class="app-container">
+        
+        <main id="main-content">
+            <!-- Landing View (Home) -->
+            <div id="landing-view" class="view active">
+                <div class="hero">
+                    <h2>Science-Backed Skincare & Haircare.</h2>
+                    <p>Shop our expertly curated catalog or take the diagnostic for personalized matches.</p>
+                </div>
+                
+                <div class="category-cards">
+                    <div class="category-card" data-action="cat_skin">
+                        <div class="category-bg" style="background-image: url('images/serum_vitaminc.png');"></div>
+                        <div class="category-content">
+                            <h3>Shop Skin</h3>
+                            <p>Discover potent serums, rich moisturizers, and gentle cleansers.</p>
+                            <button class="primary-btn">View Collection</button>
+                        </div>
+                    </div>
+                    <div class="category-card" data-action="cat_hair">
+                        <div class="category-bg" style="background-image: url('images/hair_mask_argan.png');"></div>
+                        <div class="category-content">
+                            <h3>Shop Hair</h3>
+                            <p>Achieve your hair goals with custom-matched treatments and stylers.</p>
+                            <button class="primary-btn">View Collection</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-banner" id="banner-quiz">
+                    <div>
+                        <h3>Not sure where to start?</h3>
+                        <p>Take our 6-step diagnostic quiz to let the algorithm find your perfect routine.</p>
+                    </div>
+                    <button class="primary-btn">Start Diagnosis</button>
+                </div>
+            </div>
+
+            <!-- Name Capture View -->
+            <div id="name-capture-view" class="view hidden">
+                <div class="hero" style="margin-top: 100px;">
+                    <h2>Let's personalize this.</h2>
+                    <p>What should we call you? Your results will be saved under this name.</p>
+                    
+                    <div class="name-input-container" style="display:flex; flex-direction:column; gap:15px; align-items:center; max-width:400px; margin: 0 auto;">
+                        <input type="text" id="user-name-input" placeholder="Enter your first name..." autocomplete="off" style="width:100%;">
+                        <button id="save-name-btn" class="primary-btn" style="width:100%;">Continue as Guest</button>
+                        
+                        <div style="width:100%; text-align:center; color: var(--text-muted); font-size: 0.9rem; margin: 10px 0;">&mdash; OR &mdash;</div>
+                        
+                        <button id="google-signin-btn" class="secondary-btn" style="width:100%; display:flex; justify-content:center; align-items:center; gap:10px;">
+                            <i class="fab fa-google"></i> Sign in with Google to save data
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Category Selection View -->
+            <div id="quiz-start-view" class="view hidden">
+                <div class="hero">
+                    <h2>Select Your Focus.</h2>
+                    <p>Which area would you like us to diagnose today?</p>
+                </div>
+                <div class="selection-buttons">
+                    <button class="large-outline-btn" data-quiz="skin">Skin Assessment</button>
+                    <button class="large-outline-btn" data-quiz="hair">Hair Assessment</button>
+                </div>
+            </div>
+
+            <!-- Quiz Flow View -->
+            <div id="quiz-view" class="view hidden">
+                <div class="quiz-header">
+                    <button id="quit-btn" class="text-btn">← Cancel</button>
+                    <div class="progress-details">
+                        <span id="quiz-category-label" class="badge">Skin</span>
+                        <span id="progress-text" class="progress-text">Step 1 of X</span>
+                    </div>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-bar-wrap">
+                        <div id="progress-bar" class="progress-bar"></div>
+                    </div>
+                </div>
+
+                <div id="question-container" class="question-container">
+                    <h2 id="question-text" class="question-text">Question goes here...</h2>
+                    <div id="options-container" class="options-container">
+                        <!-- Options injected via JS -->
+                    </div>
+                </div>
+                
+                <div class="quiz-controls">
+                    <button id="prev-btn" class="secondary-btn hidden">Previous</button>
+                </div>
+            </div>
+
+            <!-- Loading View -->
+            <div id="loading-view" class="view hidden">
+                <div class="loader-wrap">
+                    <div class="loader"></div>
+                    <h2 id="loading-text">Analyzing profile...</h2>
+                </div>
+            </div>
+
+            <!-- Catalog / Results View -->
+            <div id="catalog-view" class="view hidden">
+                <div class="catalog-header">
+                    <div id="catalog-titles">
+                        <h2 id="catalog-title">Shop Skin Care</h2>
+                        <p id="catalog-subtitle">Our complete range of clinical formulations.</p>
+                    </div>
+                    <div id="results-actions" class="hidden">
+                        <button id="retake-btn" class="primary-btn">Retake Quiz</button>
+                    </div>
+                </div>
+
+                <div id="history-callout" class="quiz-banner hidden" style="margin-bottom: 30px; padding: 20px 30px;">
+                    <div>
+                        <h3 style="font-size: 1.4rem; margin-bottom: 5px;">We saved your perfect matches.</h3>
+                        <p style="font-size: 0.95rem;">You previously completed a diagnostic for this category.</p>
+                    </div>
+                    <button id="load-history-btn" class="secondary-btn">View My Routine</button>
+                </div>
+                
+                <div id="catalog-filters" class="catalog-filters">
+                    <select id="filter-select">
+                        <option value="All">All Products</option>
+                        <option value="Cleanser">Cleansers</option>
+                        <option value="Serum">Serums</option>
+                        <option value="Moisturizer">Moisturizers</option>
+                        <option value="Sunscreen">Sunscreens</option>
+                        <option value="Treatment">Treatments</option>
+                        <option value="Shampoo">Shampoos</option>
+                        <option value="Styling">Styling</option>
+                    </select>
+                </div>
+
+                <div id="products-grid" class="products-grid">
+                    <!-- Products injected via JS -->
+                </div>
+            </div>
+
+            <!-- Profile / History View -->
+            <div id="profile-view" class="view hidden">
+                <div class="profile-header">
+                    <div class="avatar-circle" id="profile-avatar">G</div>
+                    <div>
+                        <h2 id="profile-greeting">Welcome back, Guest!</h2>
+                        <p>Manage your saved routines and quiz history below.</p>
+                    </div>
+                </div>
+
+                <div class="history-section">
+                    <h3>Your Saved Routines</h3>
+                    <div id="history-list" class="history-list">
+                        <!-- History cards injected via JS -->
+                    </div>
+                    <div id="empty-history" class="hidden" style="color: var(--text-muted); margin-top: 20px;">
+                        You haven't taken any assessments yet. <a href="#" id="profile-take-quiz-link" style="color: var(--primary);">Take one now</a>.
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Luxury Store Footer -->
+    <footer class="app-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="nav-brand">Skinly<span>.</span></div>
+                <p class="footer-desc">Redefining clinical beauty through personalized, algorithmic matching. Formulated for your unique biology.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#" id="footer-shipping">Shipping & Returns</a></li>
+                    <li><a href="#" id="footer-tracking">Order Tracking</a></li>
+                    <li><a href="#" id="footer-faq">FAQ</a></li>
+                    <li><a href="#" id="footer-contact">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#" id="footer-terms">Terms of Service</a></li>
+                    <li><a href="#" id="footer-privacy">Privacy Policy</a></li>
+                    <li><a href="#" id="footer-ingredients">Ingredient Glossary</a></li>
+                </ul>
+            </div>
+            <div class="footer-col" style="flex: 1.5;">
+                <h4>Join the Glow Club</h4>
+                <p style="font-size: 0.9rem; margin-bottom: 15px; color: var(--text-muted);">Subscribe securely to get 10% off your first order.</p>
+                <div class="newsletter-input">
+                    <input type="email" placeholder="Your email address">
+                    <button>Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Skinly Cosmetics. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Drawer -->
+    <div id="cart-drawer-overlay" class="drawer-overlay hidden"></div>
+    <div id="cart-drawer" class="cart-drawer">
+        <div class="cart-header">
+            <h3>Your Bag</h3>
+            <button id="close-cart-btn" class="close-drawer">X</button>
+        </div>
+        <div id="cart-items" class="cart-items">
+            <!-- Items injected via JS -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-subtotal">
+                <span>Subtotal</span>
+                <span id="cart-subtotal-price">₹0.00</span>
+            </div>
+            <p class="shipping-note">Taxes and shipping calculated at checkout.</p>
+            <button class="primary-btn w-full" id="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="product-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button class="close-modal" id="close-modal">×</button>
+            <div class="modal-body">
+                <div class="modal-image-col">
+                    <img id="modal-img" src="" alt="">
+                </div>
+                <div class="modal-info-col">
+                    <div class="modal-badges">
+                        <span id="modal-category" class="product-category">Category</span>
+                        <span class="rating-badge">⭐ <span id="modal-rating">4.8</span> (<span id="modal-reviews">100</span>)</span>
+                    </div>
+                    <h2 id="modal-name">Product Name</h2>
+                    <p class="modal-price" id="modal-price">$0</p>
+                    
+                    <div class="modal-section">
+                        <h3>Description</h3>
+                        <p id="modal-desc">Product description goes here.</p>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>How To Use</h3>
+                        <p id="modal-how">Instructions go here.</p>
+                    </div>
+
+                    <div class="modal-section">
+                        <h3>Key Ingredients</h3>
+                        <div class="product-ingredients" id="modal-ingredients">
+                            <!-- Tags go here -->
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="primary-btn w-full" id="modal-add-to-bag">Add To Bag</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Modal (Generic for Policies, Contact, etc.) -->
+    <div id="info-modal" class="modal-overlay">
+        <div class="modal-content info-modal-content">
+            <button id="close-info-modal" class="close-modal">&times;</button>
+            <div id="info-modal-body">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+
+    <script src="data.js?v=2"></script>
+    <script src="app.js?v=2"></script>
+</body>
+</html>

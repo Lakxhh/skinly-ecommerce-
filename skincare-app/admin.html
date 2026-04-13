@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skinly | Cloud Admin Portal</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --surface: #1a1a1a;
+            --surface-hover: #2a2a2a;
+            --accent: #ffffff;
+            --text-main: #f5f5f5;
+            --text-muted: #a0a0a0;
+            --border: #333333;
+            --danger: #ff5252;
+            --success: #4caf50;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-link {
+            padding: 12px 15px;
+            border-radius: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: var(--accent);
+            color: var(--bg-dark);
+            font-weight: 600;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            max-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .btn {
+            background: var(--accent);
+            color: var(--bg-dark);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-danger {
+            background: transparent;
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+        .btn-danger:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* Form Area */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full {
+            grid-column: span 2;
+        }
+
+        label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        input, select, textarea {
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--accent);
+        }
+
+        /* Products Table */
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        td {
+            vertical-align: middle;
+        }
+
+        .td-image img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 8px;
+            background: #fff;
+        }
+
+        .status-badge {
+            background: rgba(76, 175, 80, 0.2);
+            color: var(--success);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Toast */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent);
+            color: var(--bg-dark);
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 1000;
+        }
+
+        #toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: var(--bg-dark);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* --- Login Overlay --- */
+        .login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--bg-dark); z-index: 9999; display: flex; justify-content: center; align-items: center; padding: 20px; transition: opacity 0.5s; }
+        .login-overlay.hidden { opacity: 0; pointer-events: none; }
+        .login-box { background: var(--surface); border: 1px solid var(--border); padding: 40px; border-radius: 16px; text-align: center; max-width: 400px; width: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
+        .login-box h2 { font-size: 1.8rem; margin-bottom: 10px; }
+        .login-box p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 30px; }
+        .login-box input { width: 100%; margin-bottom: 20px; text-align: center; letter-spacing: 2px; }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); padding: 15px 20px; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+            .sidebar .brand { margin-bottom: 0; font-size: 1.2rem; }
+            .sidebar .nav-link { margin-bottom: 0; padding: 6px 10px; font-size: 0.9rem; }
+            .sidebar > div:last-child { display: none; }
+            .main-content { padding: 20px; }
+            header { flex-direction: column; align-items: flex-start; gap: 15px; margin-bottom: 25px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .form-group.full { grid-column: span 1; }
+            .card { padding: 20px; }
+            th, td { padding: 10px; font-size: 0.85rem; }
+            .td-image img { width: 30px; height: 30px; }
+        }
+        
+    </style>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <!-- Config -->
+    <script src="firebase-config.js"></script>
+</head>
+<body>
+
+    <!-- Security Overlay -->
+    <div id="login-overlay" class="login-overlay">
+        <div class="login-box">
+            <div class="brand" style="justify-content: center;"><i class="fas fa-lock"></i> Restricted Access</div>
+            <h2>Admin Login</h2>
+            <p>Please enter the team passcode to access the database controls.</p>
+            <input type="password" id="admin-passcode-input" placeholder="••••••••">
+            <button class="btn w-full" id="admin-login-btn" style="justify-content: center;">Authenticate</button>
+            <p id="admin-error-msg" style="color: var(--danger); margin-top: 15px; margin-bottom: 0; display: none;">Invalid Passcode</p>
+        </div>
+    </div>
+
+    <aside class="sidebar">
+        <div class="brand">
+            <i class="fas fa-sparkles"></i> Skinly Admin
+        </div>
+        <a href="#products" class="nav-link active"><i class="fas fa-box"></i> Products</a>
+        <a href="index.html" class="nav-link" target="_blank"><i class="fas fa-external-link-alt"></i> View Website</a>
+        
+        <div style="margin-top: auto; color: var(--text-muted); font-size: 0.8rem; text-align: center;">
+            Connected to Live Database
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header>
+            <h1>Product Management</h1>
+            <button class="btn" id="toggle-add-btn"><i class="fas fa-plus"></i> Add New Product</button>
+        </header>
+
+        <!-- Add Form (Hidden by default) -->
+        <div class="card" id="add-form-card" style="display: none;">
+            <h2 style="margin-bottom: 20px;">Add New Product</h2>
+            <form id="add-product-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Product ID (Unique, e.g. s31, h14)</label>
+                        <input type="text" id="p-id" required placeholder="s31">
+                    </div>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="p-name" required placeholder="New Miracle Serum">
+                    </div>
+                    <div class="form-group">
+                        <label>Department Type</label>
+                        <select id="p-type">
+                            <option value="skin">Skin Care</option>
+                            <option value="hair">Hair Care</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Category / Filter Target</label>
+                        <select id="p-category">
+                            <option value="Cleanser">Cleanser</option>
+                            <option value="Serum">Serum / Treatment</option>
+                            <option value="Moisturizer">Moisturizer</option>
+                            <option value="Sunscreen">Sunscreen</option>
+                            <option value="Shampoo">Shampoo</option>
+                            <option value="Treatment">Hair Mask/Treatment</option>
+                            <option value="Styling">Styling</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Base Price (₹)</label>
+                        <input type="number" id="p-price" required placeholder="1200">
+                    </div>
+                    <div class="form-group">
+                        <label>Price Range Text</label>
+                        <input type="text" id="p-pricerange" placeholder="₹1,000 - ₹1,400">
+                    </div>
+                    <div class="form-group full">
+                        <label>Image URL Path</label>
+                        <input type="text" id="p-image" required placeholder="images/cerave_bottle.png">
+                    </div>
+                    <div class="form-group full">
+                        <label>Description</label>
+                        <textarea id="p-desc" rows="3" required placeholder="Describe the product benefits..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Quiz Traits (comma separated)</label>
+                        <input type="text" id="p-traits" required placeholder="acne, oily, textured, all">
+                    </div>
+                    <div class="form-group">
+                        <label>Key Ingredients (comma separated)</label>
+                        <input type="text" id="p-ingredients" required placeholder="Niacinamide, Zinc">
+                    </div>
+                    <div class="form-group full">
+                        <label>How To Use</label>
+                        <input type="text" id="p-how" required placeholder="Apply 2-3 drops daily.">
+                    </div>
+                </div>
+                <div style="margin-top: 25px; display: flex; gap: 10px;">
+                    <button type="submit" class="btn" id="save-btn">Save to Firebase</button>
+                    <button type="button" class="btn btn-danger" id="cancel-btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Product List -->
+        <div class="card">
+            <h2 style="margin-bottom: 20px;">Live Database Products</h2>
+            <div class="table-wrap">
+                <table id="products-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="products-body">
+                        <tr><td colspan="7" style="text-align: center; padding: 30px;">Loading from Cloud...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <div id="toast"><i class="fas fa-check-circle"></i> <span id="toast-msg">Success</span></div>
+
+    <script>
+        const addFormCard = document.getElementById('add-form-card');
+        const form = document.getElementById('add-product-form');
+        const tbody = document.getElementById('products-body');
+        const saveBtn = document.getElementById('save-btn');
+        let products = [];
+
+        document.getElementById('toggle-add-btn').onclick = () => {
+            addFormCard.style.display = 'block';
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        };
+
+        document.getElementById('cancel-btn').onclick = () => {
+            addFormCard.style.display = 'none';
+            form.reset();
+        };
+
+        function showToast(msg) {
+            document.getElementById('toast-msg').innerText = msg;
+            const t = document.getElementById('toast');
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        async function fetchProducts() {
+            // Verify Local Authorization Before Fetching
+            const token = sessionStorage.getItem('SkinlyAdmin_Lock');
+            if (token !== btoa('SkinlyTeam2026')) {
+                document.getElementById('login-overlay').classList.remove('hidden');
+                return;
+            }
+
+            try {
+                // we rely on anonymous auth in firebase-config.js
+                if(!auth.currentUser) {
+                    await handleCloudIdentity();
+                }
+                const snapshot = await db.collection('products').get();
+                products = [];
+                snapshot.forEach(doc => {
+                    products.push({ _id: doc.id, ...doc.data() });
+                });
+                renderTable();
+            } catch (e) {
+                console.error(e);
+                tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:#ff5252">Error connecting to Firebase. Check console.</td></tr>`;
+            }
+        }
+
+        function renderTable() {
+            tbody.innerHTML = '';
+            
+            // sort by type, then name
+            products.sort((a,b) => {
+                if(a.type !== b.type) return a.type.localeCompare(b.type);
+                return a.name.localeCompare(b.name);
+            });
+
+            products.forEach(p => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="td-image"><img src="${p.image}" alt="Img" onerror="this.src='https://via.placeholder.com/40?text=NA'"></td>
+                    <td style="font-weight: 500;">${p.name} <br> <small style="color:#888">ID: ${p._id}</small></td>
+                    <td>${p.category}</td>
+                    <td>₹${p.price}</td>
+                    <td><span style="text-transform: capitalize;">${p.type || 'Skin'}</span></td>
+                    <td><span class="status-badge">Live</span></td>
+                    <td>
+                        <button class="btn btn-danger" style="padding: 6px 12px; font-size:0.8rem;" onclick="deleteProduct('${p._id}', '${p.name}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            if(products.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">No products found in Firebase. Try running Sync Tool first.</td></tr>`;
+            }
+        }
+
+        async function deleteProduct(id, name) {
+            if(confirm(`Are you sure you want to delete ${name}? This will instantly remove it from the live website.`)) {
+                try {
+                    await db.collection('products').doc(id).delete();
+                    showToast(`Deleted ${name}`);
+                    fetchProducts();
+                } catch (e) {
+                    alert("Error deleting: " + e.message);
+                }
+            }
+        }
+
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('p-id').value.trim();
+            const originalBtn = saveBtn.innerHTML;
+            saveBtn.innerHTML = '<span class="loader"></span> Saving...';
+            saveBtn.disabled = true;
+
+            const productData = {
+                name: document.getElementById('p-name').value.trim(),
+                type: document.getElementById('p-type').value,
+                category: document.getElementById('p-category').value,
+                filterTarget: document.getElementById('p-category').value,
+                price: parseFloat(document.getElementById('p-price').value),
+                priceRange: document.getElementById('p-pricerange').value.trim(),
+                image: document.getElementById('p-image').value.trim(),
+                desc: document.getElementById('p-desc').value.trim(),
+                traits: document.getElementById('p-traits').value.split(',').map(s=>s.trim()),
+                ingredients: document.getElementById('p-ingredients').value.split(',').map(s=>s.trim()),
+                howToUse: document.getElementById('p-how').value.trim(),
+                rating: 5.0, // Default for new products
+                reviews: 0
+            };
+
+            try {
+                // Ensure auth before writing
+                if(!auth.currentUser) await handleCloudIdentity();
+                
+                await db.collection('products').doc(id).set(productData);
+                showToast("Product successfully added to Live Database!");
+                form.reset();
+                addFormCard.style.display = 'none';
+                fetchProducts();
+            } catch (e) {
+                alert("Error saving: " + e.message);
+            } finally {
+                saveBtn.innerHTML = originalBtn;
+                saveBtn.disabled = false;
+            }
+        };
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            // Security Login Hook
+            const loginBtn = document.getElementById('admin-login-btn');
+            const passInput = document.getElementById('admin-passcode-input');
+            const errMsg = document.getElementById('admin-error-msg');
+            const overlay = document.getElementById('login-overlay');
+
+            function handleLogin() {
+                if (passInput.value === 'SkinlyTeam2026') {
+                    sessionStorage.setItem('SkinlyAdmin_Lock', btoa('SkinlyTeam2026'));
+                    overlay.classList.add('hidden');
+                    errMsg.style.display = 'none';
+                    fetchProducts();
+                } else {
+                    errMsg.style.display = 'block';
+                    passInput.value = '';
+                }
+            }
+
+            loginBtn.addEventListener('click', handleLogin);
+            passInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleLogin(); });
+
+            // Initial check
+            const token = sessionStorage.getItem('SkinlyAdmin_Lock');
+            if (token === btoa('SkinlyTeam2026')) {
+                overlay.classList.add('hidden');
+                setTimeout(fetchProducts, 500);
+            }
+        });
+
+    </script>
+</body>
+</html>
