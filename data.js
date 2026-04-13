@@ -20,7 +20,7 @@ const data = {
         skin: [
             {
                 id: 'doppelt_1',
-                name: "Mandelic Acid Serum",
+                name: "SkinCeuticals Cell Cycle Catalyst",
                 category: "Serum",
                 desc: "The iconic multi-tasking serum to help address acne, uneven skin tone, and visible signs of aging.",
                 price: 1450,
@@ -34,7 +34,7 @@ const data = {
             },
             {
                 id: 'doppelt_2',
-                name: "A.G.E. Advanced Eye",
+                name: "SkinCeuticals A.G.E. Advanced Eye",
                 category: "Treatment",
                 desc: "An anti-wrinkle eye cream that improves the appearance of dark circles, puffiness, and crow’s feet.",
                 price: 4800,
@@ -48,7 +48,7 @@ const data = {
             },
             {
                 id: 'doppelt_3',
-                name: "Acne Spray Treatment",
+                name: "Glytone Acne Spray Treatment",
                 category: "Treatment",
                 desc: "Glytone's Acne Spray Treatment contains salicylic acid as the main ingredient for the treatment of acne, specifically formulated for hard-to-reach areas.",
                 price: 1150,
@@ -62,7 +62,7 @@ const data = {
             },
             {
                 id: 'doppelt_4',
-                name: "Advanced RGN-6",
+                name: "SkinCeuticals Advanced RGN-6",
                 category: "Moisturizer",
                 desc: "Advanced RGN-6 is a potent skin regenerating cream inspired by laser regeneration science, designed to help with signs of aging.",
                 price: 6500,
@@ -76,7 +76,7 @@ const data = {
             },
             {
                 id: 's1',
-                name: 'Hydrating Milky Cleanser',
+                name: 'La Roche-Posay Toleriane Milky Cleanser',
                 category: 'Cleanser',
                 desc: 'A gentle, non-foaming cleanser that melts away impurities while soothing sensitive skin. Formulated without harsh sulfates, this rich milky texture ensures your skin barrier remains fully intact.',
                 price: 750,
@@ -90,7 +90,7 @@ const data = {
             },
             {
                 id: 's2',
-                name: 'Salicylic Acid Foaming Cleanser',
+                name: 'The Derma Co Salicylic Acid Cleanser',
                 category: 'Cleanser',
                 desc: 'Deeply cleanses pores and reduces excess oil without stripping the skin barrier. Utilizing micro-exfoliation technology, this daily wash visibly reduces the appearance of blackheads.',
                 price: 850,
@@ -104,7 +104,7 @@ const data = {
             },
             {
                 id: 's3',
-                name: 'Vitamin C Brightening Serum',
+                name: 'Minimalist 10% Vitamin C Serum',
                 category: 'Serum',
                 desc: 'A potent 15% vitamin C formula that boosts radiance and fades dark spots over time. The antioxidant complex shields against environmental aggressors to prevent further pigmentation.',
                 price: 699,
@@ -118,7 +118,7 @@ const data = {
             },
             {
                 id: 's4',
-                name: 'Rich Ceramide Repair Cream',
+                name: 'Bioderma Atoderm Intensive Baume',
                 category: 'Moisturizer',
                 desc: 'Luxurious thick cream designed to rescue compromised skin barriers and provide all-day moisture. Acts as a protective shield against bitter cold and harsh wind.',
                 price: 950,
@@ -132,7 +132,7 @@ const data = {
             },
             {
                 id: 's5',
-                name: 'Retinol Night Renewal Serum',
+                name: "Dr. Sheth's Retinol & Peptide Serum",
                 category: 'Serum',
                 desc: 'An encapsulated retinol to gently smooth fine lines, firm skin, and refine texture while you sleep. Slowly releases active ingredients to minimize irritation.',
                 price: 799,
@@ -146,7 +146,7 @@ const data = {
             },
             {
                 id: 's6',
-                name: 'Niacinamide Clarifying Toner',
+                name: "Paula's Choice 10% Niacinamide Booster",
                 category: 'Serum',
                 desc: 'A refreshing daily splash that dramatically reduces the appearance of pores and balances sebum. Instantly mattifies while providing a rush of lightweight hydration.',
                 price: 599,
@@ -160,7 +160,7 @@ const data = {
             },
             {
                 id: 's7',
-                name: 'Mineral Sunscreen SPF 50',
+                name: 'ISDIN Fotoprotector Fusion Water SPF 50',
                 category: 'Sunscreen',
                 desc: 'Broad spectrum protection that is non-nano, reef-safe, and blends flawlessly without a nasty white cast. Features a sheer, powdery finish perfect under makeup.',
                 price: 399,
@@ -174,7 +174,7 @@ const data = {
             },
             {
                 id: 's8',
-                name: 'AHA/BHA Peeling Solution',
+                name: 'The Ordinary AHA 30% + BHA 2% Peeling Solution',
                 category: 'Treatment',
                 desc: 'A powerful weekly wash-off treatment for dramatic re-texturizing and deep pore clearance. Instantly dissolves dead skin cells for a glass-skin effect.',
                 price: 600,
@@ -503,7 +503,7 @@ const data = {
         hair: [
             {
                 id: 'h1',
-                name: 'Clarifying Scalp Serum',
+                name: 'The Ordinary Multi-Peptide Hair Density Serum',
                 category: 'Treatment',
                 desc: 'An exfoliant for your scalp that breaks down product buildup, balances oil, and promotes healthy growth. Essential for those using heavy styling products or dry shampoos.',
                 price: 750,
@@ -517,7 +517,7 @@ const data = {
             },
             {
                 id: 'h2',
-                name: 'Volumizing Peptide Shampoo',
+                name: 'Matrix Biolage Volumizing Shampoo',
                 category: 'Shampoo',
                 desc: 'A lightweight cleanser that plumps hair strands from the root for maximum lift and density. Color-safe and entirely sulfate-free.',
                 price: 650,
@@ -531,7 +531,7 @@ const data = {
             },
             {
                 id: 'h3',
-                name: 'Hydrating Argan Hair Mask',
+                name: "L'Oreal Professionnel Argan Hair Mask",
                 category: 'Treatment',
                 desc: 'A deeply restorative deep conditioner that breathes life back into dry, coarse, or damaged hair. Seals the cuticle tightly for insane slip and shine.',
                 price: 650,
@@ -545,7 +545,7 @@ const data = {
             },
             {
                 id: 'h4',
-                name: 'Anti-Frizz Smoothing Oil',
+                name: 'Moroccanoil Treatment Oil',
                 category: 'Styling',
                 desc: 'A weightless oil blend that locks out humidity, seals flyaways, and delivers glass-like shine without ever making hair look greasy.',
                 price: 450,
@@ -559,7 +559,7 @@ const data = {
             },
             {
                 id: 'h5',
-                name: 'Leave-In Heat Protectant',
+                name: 'Tresemme Heat Protectant Mist',
                 category: 'Styling',
                 desc: 'A fine mist that detangles, hydrates, and protects hair up to 450°F from hot tools. Crucial for daily blow-drying or flat-ironing.',
                 price: 399,
