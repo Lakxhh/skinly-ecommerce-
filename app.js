@@ -108,19 +108,21 @@ let AppState = {
 
 function init() {
     // Nav Binds
-    DOM.nav.home.addEventListener('click', () => setMode('home'));
-    DOM.nav.skin.addEventListener('click', () => { setMode('catalog'); renderCatalog('skin'); closeMobileMenu(); });
-    DOM.nav.hair.addEventListener('click', () => { setMode('catalog'); renderCatalog('hair'); closeMobileMenu(); });
-    DOM.nav.quiz.addEventListener('click', () => { attemptAction('quiz_select'); closeMobileMenu(); });
-    DOM.nav.profile.addEventListener('click', () => { attemptAction('profile'); closeMobileMenu(); });
+    if (DOM.nav.home) DOM.nav.home.addEventListener('click', () => setMode('home'));
+    if (DOM.nav.skin) DOM.nav.skin.addEventListener('click', () => { setMode('catalog'); renderCatalog('skin'); closeMobileMenu(); });
+    if (DOM.nav.hair) DOM.nav.hair.addEventListener('click', () => { setMode('catalog'); renderCatalog('hair'); closeMobileMenu(); });
+    if (DOM.nav.quiz) DOM.nav.quiz.addEventListener('click', () => { attemptAction('quiz_select'); closeMobileMenu(); });
+    if (DOM.nav.profile) DOM.nav.profile.addEventListener('click', () => { attemptAction('profile'); closeMobileMenu(); });
 
     // Mobile Hamburger Menu
     function openMobileMenu() {
+        if (!DOM.mobile.overlay || !DOM.mobile.drawer) return;
         DOM.mobile.overlay.classList.remove('hidden');
         setTimeout(() => DOM.mobile.drawer.classList.add('show'), 10);
     }
     
     function closeMobileMenu() {
+        if (!DOM.mobile.overlay || !DOM.mobile.drawer) return;
         DOM.mobile.drawer.classList.remove('show');
         setTimeout(() => DOM.mobile.overlay.classList.add('hidden'), 400);
     }
@@ -134,9 +136,9 @@ function init() {
     if(DOM.mobile.navProfile) DOM.mobile.navProfile.addEventListener('click', () => { attemptAction('profile'); closeMobileMenu(); });
     if(DOM.mobile.navQuiz) DOM.mobile.navQuiz.addEventListener('click', () => { attemptAction('quiz_select'); closeMobileMenu(); });
     
-    DOM.quizActions.startBanner.addEventListener('click', () => attemptAction('quiz_select'));
-    DOM.profile.takeQuizLink.addEventListener('click', (e) => { e.preventDefault(); attemptAction('quiz_select'); });
-    DOM.catalog.loadHistoryBtn.addEventListener('click', () => loadHistoricalRoutine(AppState.catalogCategory));
+    if(DOM.quizActions.startBanner) DOM.quizActions.startBanner.addEventListener('click', () => attemptAction('quiz_select'));
+    if(DOM.profile.takeQuizLink) DOM.profile.takeQuizLink.addEventListener('click', (e) => { e.preventDefault(); attemptAction('quiz_select'); });
+    if(DOM.catalog.loadHistoryBtn) DOM.catalog.loadHistoryBtn.addEventListener('click', () => loadHistoricalRoutine(AppState.catalogCategory));
 
     // Shop Home Cards
     DOM.quizActions.cards.forEach(card => {
@@ -171,29 +173,38 @@ function init() {
     }
 
     // Catalog Filter
-    DOM.catalog.filterSelect.addEventListener('change', (e) => {
-        AppState.selectedFilterType = e.target.value;
-        filterAndRenderGrid();
-    });
+    if(DOM.catalog.filterSelect) {
+        DOM.catalog.filterSelect.addEventListener('change', (e) => {
+            AppState.selectedFilterType = e.target.value;
+            filterAndRenderGrid();
+        });
+    }
 
     // Modal Binds
-    DOM.modal.close.addEventListener('click', closeModal);
-    DOM.modal.overlay.addEventListener('click', (e) => {
+    if(DOM.modal.close) DOM.modal.close.addEventListener('click', closeModal);
+    if(DOM.modal.overlay) DOM.modal.overlay.addEventListener('click', (e) => {
         if(e.target === DOM.modal.overlay) closeModal();
     });
     
     // Info Modal Binds
-    DOM.infoModal.close.addEventListener('click', closeInfoModal);
-    DOM.infoModal.overlay.addEventListener('click', (e) => {
+    if(DOM.infoModal.close) DOM.infoModal.close.addEventListener('click', closeInfoModal);
+    if(DOM.infoModal.overlay) DOM.infoModal.overlay.addEventListener('click', (e) => {
         if(e.target === DOM.infoModal.overlay) closeInfoModal();
     });
 
     // Footer Listeners
-    document.getElementById('footer-shipping').addEventListener('click', (e) => { e.preventDefault(); showInfo('shipping'); });
-    document.getElementById('footer-contact').addEventListener('click', (e) => { e.preventDefault(); showInfo('contact'); });
-    document.getElementById('footer-faq').addEventListener('click', (e) => { e.preventDefault(); showInfo('faq'); });
-    document.getElementById('footer-terms').addEventListener('click', (e) => { e.preventDefault(); showInfo('terms'); });
-    document.getElementById('footer-privacy').addEventListener('click', (e) => { e.preventDefault(); showInfo('privacy'); });
+    // Footer Listeners
+    const fShip = document.getElementById('footer-shipping');
+    const fCont = document.getElementById('footer-contact');
+    const fFaq = document.getElementById('footer-faq');
+    const fTerms = document.getElementById('footer-terms');
+    const fPriv = document.getElementById('footer-privacy');
+
+    if(fShip) fShip.addEventListener('click', (e) => { e.preventDefault(); showInfo('shipping'); });
+    if(fCont) fCont.addEventListener('click', (e) => { e.preventDefault(); showInfo('contact'); });
+    if(fFaq) fFaq.addEventListener('click', (e) => { e.preventDefault(); showInfo('faq'); });
+    if(fTerms) fTerms.addEventListener('click', (e) => { e.preventDefault(); showInfo('terms'); });
+    if(fPriv) fPriv.addEventListener('click', (e) => { e.preventDefault(); showInfo('privacy'); });
 
     // Newsletter subscription
     const newsletterBtn = document.querySelector('.newsletter-input button');
