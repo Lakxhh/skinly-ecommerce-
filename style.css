@@ -201,9 +201,26 @@ body { background: var(--bg-main); color: var(--text-main); min-height: 100vh; o
 @media (max-width: 768px) {
     .nav-links { display: none; }
     .mobile-menu-btn { display: inline-block; }
-    .hero h2 { font-size: 2.5rem; }
+    .hero h2 { font-size: 2.2rem; }
+    .hero p { font-size: 1rem; }
+    .category-cards { gap: 15px; }
+    .category-card { min-width: 100%; height: 320px; }
+    .category-content { padding: 30px 20px; }
+    .category-content h3 { font-size: 1.6rem; }
+    
+    .quiz-banner { 
+        flex-direction: column; 
+        text-align: center; 
+        padding: 25px; 
+        gap: 20px;
+    }
+    .quiz-banner h3 { font-size: 1.5rem; }
+    .quiz-banner p { font-size: 1rem; }
+    .quiz-banner .primary-btn { width: 100%; }
+
     .modal-body { flex-direction: column; }
     .footer-container { flex-direction: column; gap: 30px; }
+    .catalog-header h2 { font-size: 2rem; }
 }
 
 /* --- Info Modal Styles --- */
