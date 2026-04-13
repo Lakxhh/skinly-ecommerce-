@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Skinly | Product Data Sync</title>
+    <style>
+        body { font-family: 'Outfit', sans-serif; background: #0a0a0a; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .card { background: #1a1a1a; padding: 40px; border-radius: 20px; border: 1px solid #333; text-align: center; max-width: 500px; }
+        button { background: #fff; color: #000; border: none; padding: 15px 30px; border-radius: 30px; font-weight: 600; cursor: pointer; margin-top: 20px; font-size: 1rem; transition: transform 0.2s; }
+        button:hover { transform: scale(1.05); }
+        button:disabled { background: #444; color: #888; cursor: not-allowed; }
+        #status { margin-top: 20px; color: #aaa; font-size: 0.9rem; }
+        .progress-bar { width: 100%; height: 6px; background: #333; border-radius: 3px; margin-top: 20px; overflow: hidden; display: none; }
+        .progress-fill { width: 0%; height: 100%; background: #fff; transition: width 0.3s; }
+    </style>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="data.js"></script>
+</head>
+<body>
+    <div class="card">
+        <h1>Cloud Data Sync</h1>
+        <p>This utility will upload all <b>40+ products</b> from your local <code>data.js</code> to your Firestore 'products' collection.</p>
+        <button id="sync-btn">Start Cloud Sync</button>
+        <div class="progress-bar" id="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+        <div id="status">Ready to initialize connection...</div>
+    </div>
+
+    <script>
+        const btn = document.getElementById('sync-btn');
+        const status = document.getElementById('status');
+        const progressWrap = document.getElementById('progress-bar');
+        const progressFill = document.getElementById('progress-fill');
+
+        btn.onclick = async () => {
+            btn.disabled = true;
+            status.innerText = "Connecting to Skinly Cloud...";
+            progressWrap.style.display = 'block';
+
+            try {
+                // Ensure auth (Anonymous)
+                if (!auth.currentUser) {
+                    await auth.signInAnonymously();
+                }
+
+                const skinProducts = data.products.skin.map(p => ({...p, type: 'skin'}));
+                const hairProducts = data.products.hair.map(p => ({...p, type: 'hair'}));
+                const allProducts = [...skinProducts, ...hairProducts];
+                
+                const total = allProducts.length;
+                let count = 0;
+
+                for (const p of allProducts) {
+                    count++;
+                    status.innerText = `[${count}/${total}] Syncing: ${p.name}...`;
+                    const percent = (count / total) * 100;
+                    progressFill.style.width = percent + '%';
+                    
+                    // Upload to Firestore
+                    await db.collection('products').doc(p.id).set(p);
+                }
+
+                status.innerText = "✅ SUCCESS: All products are now live in Firestore!";
+                status.style.color = "#4caf50";
+                btn.innerText = "Refresh Site to See Changes";
+                btn.disabled = false;
+                btn.onclick = () => window.location.href = 'index.html';
+
+            } catch (error) {
+                console.error(error);
+                status.innerText = "❌ ERROR: " + error.message;
+                status.style.color = "#ff5252";
+                btn.disabled = false;
+                btn.innerText = "Retry Sync";
+            }
+        };
+    </script>
+</body>
+</html>
