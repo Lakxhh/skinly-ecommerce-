@@ -859,6 +859,18 @@ function showInfo(type) {
                     <a href="https://www.linkedin.com/in/kunal-choudhary-31861726a?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" class="social-icon-btn linkedin"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
+            
+            <div class="contact-card">
+                <div class="contact-name">Laksh Choudhary</div>
+                <div class="contact-role">Lead Developer & Co-Founder</div>
+                <div class="contact-phone">
+                    <a href="mailto:hello@skinly.com">Email Developer</a>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/lakshhh_._?igsh=MWJleThlc2gxa3h3cQ%3D%3D&utm_source=qr" target="_blank" class="social-icon-btn instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/laksh-choudhary-9b463828b?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" class="social-icon-btn linkedin"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
             <div class="info-body-text" style="margin-top: 30px; text-align: center;">
                 <p>Available Monday - Saturday: 10:00 AM - 7:00 PM IST</p>
                 <p>General Inquiries: hello@skinly.com</p>
